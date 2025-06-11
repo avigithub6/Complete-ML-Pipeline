@@ -1,0 +1,44 @@
+dataset:
+  type: "text"  # Options: "text", "tabular", "timeseries"
+  input_columns:
+    - name: "text"
+      type: "text"
+    - name: "target"
+      type: "categorical"
+  
+preprocessing:
+  text:
+    lowercase: true
+    remove_punctuation: true
+    remove_stopwords: true
+    stemming: true
+  numeric:
+    scaling: "standard"  # Options: "standard", "minmax", "robust"
+    handle_missing: "mean"  # Options: "mean", "median", "mode"
+  categorical:
+    encoding: "label"  # Options: "label", "onehot"
+    handle_missing: "mode"
+
+feature_engineering:
+  text:
+    method: "tfidf"  # Options: "tfidf", "count", "word2vec"
+    max_features: 50
+  numeric:
+    feature_selection: "pca"  # Options: "pca", "none"
+    n_components: 0.95
+  categorical:
+    feature_selection: "none"
+
+model:
+  type: "classification"  # Options: "classification", "regression"
+  algorithm: "random_forest"  # Options: "random_forest", "xgboost", "lightgbm"
+  hyperparameters:
+    n_estimators: 30
+    random_state: 2
+
+evaluation:
+  metrics:
+    - "accuracy"
+    - "precision"
+    - "recall"
+    - "f1" 
